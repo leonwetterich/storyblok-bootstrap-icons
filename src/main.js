@@ -1,5 +1,6 @@
 import Plugin from './Plugin.vue'
 
+
 if (process.env.NODE_ENV == 'development') {
 
   window.Fieldtype = Plugin
