@@ -15,21 +15,30 @@
 </template>
 
 <script>
-var link = document.createElement("link");
-link.href =
-  "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css";
+import JSON from "../node_modules/bootstrap-icons/font/bootstrap-icons.json";
+import Package from "../package.json";
+
+const icons = [];
+for (const [key] of Object.entries(JSON)) {
+  icons.push(key);
+}
+
+const iconsVersion = Package.devDependencies.['bootstrap-icons'].split('^')[1];
+
+var link = document.createElement( "link" );
+link.href = `https://cdn.jsdelivr.net/npm/bootstrap-icons@${iconsVersion}/font/bootstrap-icons.css`;
 link.type = "text/css";
 link.rel = "stylesheet";
 link.media = "screen,print";
 
-document.getElementsByTagName("head")[0].appendChild(link);
-import JSON from "./icons.json";
+document.getElementsByTagName( "head" )[0].appendChild( link );
+
 export default {
   mixins: [window.Storyblok.plugin],
   data() {
     return {
       search: "",
-      icons: JSON.icons,
+      icons: icons,
       errors: [],
     };
   },
@@ -56,9 +65,9 @@ export default {
     },
     pluginCreated() {
       // eslint-disable-next-line
-      console.log(
-        "View source and customize: https://github.com/storyblok/storyblok-fieldtype"
-      );
+      console.log("Created by https://github.com/leonwetterich");
+      // eslint-disable-next-line
+      console.log("Runs Bootstrap Icons v" + iconsVersion);
     },
   },
   watch: {
